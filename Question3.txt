@@ -1,0 +1,69 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+char** SplitWords(char* inputSentence, int& wordCount) {
+    char tempWord[100];
+    char** wordArray;
+    int wordIndex = 0;
+
+    for (int i = 0; inputSentence[i] != '\0'; i++) {
+        if (inputSentence[i] == ' ') {
+            wordCount++;
+        }
+    }
+    wordCount++;
+
+    wordArray = new char*[wordCount];
+    wordCount = 0;
+
+    for (int i = 0, j = 0; inputSentence[i] != '\0'; i++) {
+        while (inputSentence[i] != '\0' && inputSentence[i] != ' ') {
+            tempWord[j] = inputSentence[i];
+            j++;
+            i++;
+        }
+        tempWord[j] = '\0';
+        j = 0;
+        wordArray[wordCount] = new char[strlen(tempWord) + 1];
+        strcpy(wordArray[wordCount], tempWord);
+        wordCount++;
+    }
+
+    return wordArray;
+}
+
+char* DoubleWord(char* inputWord) {
+    int wordSize = strlen(inputWord);
+    int doubledSize = wordSize * 2;
+    char doubledWord[200];
+
+    for (int i = 0; i < wordSize; i++) {
+        doubledWord[i] = inputWord[i];
+        doubledWord[i + wordSize] = inputWord[i];
+    }
+    doubledWord[doubledSize] = '\0';
+
+    delete[] inputWord;
+    inputWord = new char[doubledSize + 1];
+    strcpy(inputWord, doubledWord);
+
+    return inputWord;
+}
+
+int main() {
+    char inputSentence[100] = "this is a test sentence";
+    char** wordList;
+    int wordCount = 0;
+
+    wordList = SplitWords(inputSentence, wordCount);
+
+    for (int i = 0; i < wordCount; i++) {
+        wordList[i] = DoubleWord(wordList[i]);
+        cout<<wordList[i]<<endl;
+        delete[] wordList[i];
+    }
+
+    delete[] wordList;
+
+    return 0;
+}

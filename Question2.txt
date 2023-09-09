@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+bool IsArithmeticProgression(int* arr, int size) {
+    int d = arr[1] - arr[0];
+    
+    for (int i = 1; i < size - 1; i++) {
+        if (arr[i + 1] - arr[i] != d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool IsArithmeticProgression(char* arr, int size) {
+    int d = arr[1] - arr[0];
+    
+    for (int i = 1; i < size - 1; i++) {
+        if (arr[i + 1] - arr[i] != d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int Amount;
+    cout << "How Many Characters in Array? " << endl;
+    cin>>Amount;
+    if (Amount < 3) {
+        Amount = 3;
+    }
+    
+    char arr[Amount];
+    cout<<"Enter"<<Amount<<" characters: ";
+    for (int i = 0; i < Amount; i++) {
+        cin>>arr[i];
+    }
+
+    if (IsArithmeticProgression(arr, Amount)) {
+        cout<<"The Array is an Arithmetic Series"<<endl;
+    } else {
+        cout<<"The Array is not an Arithmetic Series"<<endl;
+    }
+
+    return 0;
+}
